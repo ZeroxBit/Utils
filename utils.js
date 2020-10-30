@@ -229,3 +229,71 @@ export const transformString = value => {
   }
   return value;
 };
+
+// valida si un objeto o array esta vacio !!
+function emptyObject(value) {
+    if ( typeof value === typeof {} ) {
+        return !!Object.values(value).length
+    }
+    return !!value;
+}
+
+// formula para calcular el monto antes de aplicarse el procentaje
+// se le pasa el monto y el procentaje que se le aplico
+export const calculateAmountBefore = (monto = paramIsRequired("monto", "calculateAmountBefore"), procentaje = paramIsRequired("procentaje", "calculateAmountBefore")) => {
+    return (monto * 100) / procentaje;
+};
+
+/**
+ * esta funcion sirve para hacer que los parametros sean requeridos !!
+ * @param {string} param el parametro que es requerido
+ */
+export const paramIsRequired = (param, functionName) => { // REFACTOR: buscar la manera para no pasarle parametros !!
+    // const functionName = Object.keys(arguments[0]); // aqui se obtiene el nombre de la funcion que lo llamo !!
+    throw new Error(`El parametro ${param} es requerido en la funcion ${functionName}`);
+}
+
+/**
+ * Recibe un array plano y regresa el array sin duplicados
+ * @param {array} arr un array de plano
+**/
+export const deleteDuplicateInArray = (arr) => {
+    return [...new Set(arr)]
+}
+
+
+export const debounceUtil = (delay, fn) => {
+    let timerId;
+    return function (...args) {
+        if (timerId) {
+            clearTimeout(timerId);
+        }
+        timerId = setTimeout(() => {
+            fn(...args);
+            timerId = null;
+        }, delay);
+    }
+}
+
+////////////////////////// funciones que trabajan fechas //////////////////////////////
+/**
+ * compara las 2 fechas y regresa la diferencia de dias !!
+ * @param dateInitial fecha inicial {yyyy-mm-dd}
+ * @param dateFinal fecha fianl {yyyy-mm-dd}
+ */
+export const getDaysDiffBetweemDates = (dateInitial, dateFinal) => (dateFinal - dateInitial) / (1000 * 3600 * 24)
+
+/**
+ * Regresa en formato de hora -> 16:25:08
+ * @param date fecha
+ */
+export const getFormatTime = date => date.toTimeString().slice(0, 8);
+
+/**
+ * regresa el dia del año en el que estamos !!
+ * @param date fecha
+ */
+export const dayOfYear = date => {
+    return Math.floor((date - new Date(date.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24);
+}
+
