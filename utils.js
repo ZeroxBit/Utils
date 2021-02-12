@@ -134,6 +134,17 @@ export const combineFunc = param => (...funcs) => {
   return newParam;
 };
 
+// partitionArray([1,2,3,4,5,6], (n) => n % 2)
+export const partitionArray = (arr, fn) => {
+    return arr.reduce((partitionArr, item) => {
+        const index = fn(item) ? 1 : 0;
+        partitionArr[index].push(item);
+
+        return partitionArr;
+    }, [[], []]);
+}
+
+
 /**
  * Combierte un numero plano en decimal, separado por comas
  * @param {string} number Numbero a ser convertido
