@@ -241,6 +241,11 @@ export const transformString = value => {
   return value;
 };
 
+// Elimina los acentos de una cadena de caracteres !!
+export const removeAccents = (str) => {
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+} 
+
 // valida si un objeto o array esta vacio !!
 function emptyObject(value) {
     if ( typeof value === typeof {} ) {
