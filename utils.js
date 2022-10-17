@@ -24,6 +24,14 @@ export const validateLentObject = obj => {
   return !!obj && !!Object.keys(obj).length;
 };
 
+export const queryParse = (data) => {
+  if (!data) return;
+
+  return Object.entries(data).reduce((acc, [property, value]) => {
+      return !acc ? `?${property}=${value}` : `${acc}&${property}=${value}`;
+  }, "");
+};
+
 /**
  * Capitaliza el primer caracter del string !!
  * @param str El string a Capitalizar
